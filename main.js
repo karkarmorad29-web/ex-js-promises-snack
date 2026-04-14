@@ -4,8 +4,8 @@
  * @returns {Promise<string>} - Una promessa che risolve con il titolo del post
  */
 
-function getPostTitle(Id) {
-    return fetch(`https://dummyjson.com/posts/${Id}`)
+function getPostTitle(postId) {
+    return fetch(`https://dummyjson.com/posts/${postId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Errore nella richiesta: ${response.status}`);
