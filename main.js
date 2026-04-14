@@ -27,7 +27,7 @@ getPostTitle('./posts/1')
  * @returns {Promise<Object>} - Una promessa che risolve con un oggetto contenente i dati del post e dell'autore
  */
 
-function getPostWithAuthor(postId) {
+/*function getPostWithAuthor(postId) {
     return fetch(`https://dummyjson.com/posts/${postId}`)
         .then(response => response.json())
         .then(post => {
@@ -49,4 +49,40 @@ getPostWithAuthor(1)
     .catch(error => {
         console.error('Si è verificato un errore:', error);
     });
+*/
+
+/**
+ * simula il lancio di un dado con una promise.
+ * @returns {Promise<number>} - Una promessa che risolve con un numero casuale tra 1 e 6, o si rifiuta con un errore se il dado si incastra (20% di probabilità).
+ * */
+
+function laciaDado() {
+    return new Promise((resolve, reject) => {
+        console.log('Lancio del dado...');
+
+        setTimeout(() => {
+            // Genera un numero casuale tra 0 e 1 per la probabilità del 20%
+            const siIncastra = Math.random() < 0.2; // 20% di probabilità
+
+            if (siIncastra) {
+                reject(new Error('Il dado si è incastrato! Riprova.'));
+            } else {
+                // Genera un numero casuale tra 1 e 6
+                const risultato = Math.floor(Math.random() * 6) + 1;
+                resolve(risultato);
+            }
+        }, 1000);// Simula un ritardo di 1 secondo per il lancio del dado
+    });
+}
+
+// Esempio di utilizzo
+laciaDado()
+    .then(risultato => {
+        console.log(`Hai ottenuto un ${risultato}!`);
+    })
+    .catch(error => {
+        console.error(`Si è verificato un errore: ${error.message}`);
+    });
+
+
 
