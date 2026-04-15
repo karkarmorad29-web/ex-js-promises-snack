@@ -56,7 +56,7 @@ getPostWithAuthor(1)
  * @returns {Promise<number>} - Una promessa che risolve con un numero casuale tra 1 e 6, o si rifiuta con un errore se il dado si incastra (20% di probabilità).
  * */
 
-function laciaDado() {
+/*function laciaDado() {
     return new Promise((resolve, reject) => {
         console.log('Lancio del dado...');
 
@@ -83,6 +83,35 @@ laciaDado()
     .catch(error => {
         console.error(`Si è verificato un errore: ${error.message}`);
     });
+*/
+
+/**
+ * Crea una versione di lanciaDado che ricordal'ultimo risultato.
+ * @return {function} la closure che gestice la logica dei lanci consecutivi.
+ */
+
+function creaLanciaDado() {
+    let ultimoRisultato = null;
+
+    return function () {
+        return LanciaDado()
+            .then(risultato => {
+
+                if (risultato === ultimoRisultato) {
+                    console.log(`Hai ottenuto di nuovo un ${risultato}!`);
+                }
+
+                // Aggiorna l'ultimo risultato
+                ultimoRisultato = risultato;
+                return risultato;
+            })
+            .catch(error => {
+                console.error(`Si è verificato un errore: ${error.message}`);
+                throw error; // Rilancia l'errore per gestirlo a livello superiore se necessario
+            });
+    };
+}
+
 
 
 
